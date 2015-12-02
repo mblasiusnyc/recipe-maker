@@ -1,2 +1,11 @@
 .container {
 }
+
+.recipe {
+	margin: 20px;
+	border: 1px solid black;
+}
+
+.recipe.open {
+	background-color: green;
+}

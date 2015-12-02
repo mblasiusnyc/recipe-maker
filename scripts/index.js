@@ -26,18 +26,38 @@ var recipes = [
 ]
 
 var Recipe = React.createClass({
+	getInitialState: function(){
+	  return {
+ 	    open: false,
+ 	    class: "recipe"
+	  };
+	},
+	handleClick: function(){
+		console.log('click handled')
+	  if(this.state.open) {
+	    this.setState({
+	      open: false,
+	      class: "recipe"
+	    });
+	  }else{
+	    this.setState({
+	      open: true,
+	      class: "recipe open"
+	    });
+	  }
+	},
 	render: function() {
 		var ingredientListItems = this.props.recipe.ingredients.map(function(ingredient) {
 			return (
 				<li className="ingredient" key={ingredient.name}>{ ingredient.name + " " + ingredient.quantity }</li>
 			);
 		})
-		console.log(this.props)
 		return (
-			<div className="recipe">
-			  <h3 className="recipeTitle">
-			    {this.props.recipe.title}
+			<div className={this.state.class}>
+			  <h3 className="recipeTitle" onClick={this.handleClick}>
+			    Title: {this.props.recipe.title}
 			  </h3>
+			  <p className="recipeDescription">Description: {this.props.recipe.description}</p>
 			  <h4 className="ingredientsTitle">Ingredients</h4>
 			  <ul className="ingredientsList">
 			  	{ingredientListItems}
