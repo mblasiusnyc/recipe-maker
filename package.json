@@ -1,0 +1,19 @@
+{
+  "name": "recipe-maker",
+  "version": "1.0.0",
+  "description": "An app to create beer recipes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mblasiusnyc/recipe-maker.git"
+  },
+  "author": "mblasiusnyc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mblasiusnyc/recipe-maker/issues"
+  },
+  "homepage": "https://github.com/mblasiusnyc/recipe-maker#readme"
+}
