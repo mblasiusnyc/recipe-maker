@@ -1,0 +1,21 @@
+.recipe {
+  position: relative;
+  width: 500px;
+}
+
+.articlewrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: all .5s ease-in;
+}
+
+.recipe.open .articlewrap{
+  max-height: 1000px;
+}
+
+.sectionhead {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

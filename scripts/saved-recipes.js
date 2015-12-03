@@ -9,7 +9,10 @@ var recipes = [
 		},{
 			name: 'Barley',
 			quantity: '4 oz'
-		}]
+		}],
+		instructions: [
+			"Light the beer on fire", "celebrate!"
+		]
 	},
 	{
 		id: 2,
@@ -21,7 +24,10 @@ var recipes = [
 		},{
 			name: 'Other',
 			quantity: '12 oz'
-		}]
+		}],
+		instructions: [
+			"Go have lunch", "come back", "eat the beer"
+		]
 	}
 ]
 
@@ -33,7 +39,6 @@ var Recipe = React.createClass({
 	  };
 	},
 	handleClick: function(){
-		console.log('click handled')
 	  if(this.state.open) {
 	    this.setState({
 	      open: false,
@@ -52,16 +57,29 @@ var Recipe = React.createClass({
 				<li className="ingredient" key={ingredient.name}>{ ingredient.name + " " + ingredient.quantity }</li>
 			);
 		})
+		var instructionListItems = this.props.recipe.instructions.map(function(instruction, index) {
+			return (
+				<li className="instruction" key={index}>{index+1}. {instruction}</li>
+			)
+		});
 		return (
 			<div className={this.state.class}>
-			  <h3 className="recipeTitle" onClick={this.handleClick}>
-			    Title: {this.props.recipe.title}
-			  </h3>
-			  <p className="recipeDescription">Description: {this.props.recipe.description}</p>
-			  <h4 className="ingredientsTitle">Ingredients</h4>
-			  <ul className="ingredientsList">
-			  	{ingredientListItems}
-			  </ul>
+				<div className="sectionhead" onClick={this.handleClick}>
+				  <h3 className="recipeTitle">
+				    Title: {this.props.recipe.title}
+				  </h3>
+			  </div>
+			  <div className="articlewrap">
+				  <h4 className="recipeDescription">Description: {this.props.recipe.description}</h4>
+				  <ul className="ingredientsList">
+					  <h4 className="ingredientsTitle">Ingredients</h4>
+				  	{ingredientListItems}
+				  </ul>
+			    <ul className="instructionsList">
+			  	  <h4 className="instructionsTitle">Instructions</h4>
+			    	{instructionListItems}
+			    </ul>
+			  </div>
 			</div>
 		)
 	}
