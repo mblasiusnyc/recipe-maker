@@ -6,3 +6,31 @@
 	border: 1px solid black;
 }
 
+.recipeForm {
+	width: 500px;
+}
+
+.ingredientsSection {
+	position: relative;
+}
+
+.suggestionsList {
+}
+
+.suggestionsList .suggestion {
+	height: 30px;
+	border-color: #CCC;
+	border-width: 0 1px 0 1px;
+	border-radius: 0px;
+	box-shadow: none;
+}
+
+.suggestionsList .suggestion:last-of-type {
+	border-bottom: 1px solid #CCC;
+}
+
+.suggestionsList .suggestion:hover {
+	background-color: lightgray;
+}
+
+

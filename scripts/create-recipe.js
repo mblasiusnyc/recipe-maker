@@ -24,7 +24,8 @@ var IngredientsSection = React.createClass({
 	getInitialState: function() {
 		return {
 			ingredient: "",
-			ingredientsList: []
+			ingredientsList: [],
+			ingredientMatches: []
 		}
 	},
 	handleSubmit: function(e) {
@@ -37,13 +38,33 @@ var IngredientsSection = React.createClass({
 		}
 	},
 	updateIngredient: function(e) {
-		this.setState({ingredient: e.target.value.trim()});
+		var newMatches = [];
+		for(var i=0; i<defaultIngredients.length; i++) {
+			if(e.target.value && defaultIngredients[i].toLowerCase().indexOf(e.target.value.toLowerCase()) > -1) {
+				newMatches.push(defaultIngredients[i])
+			}
+		}
+		this.setState({
+			ingredient: e.target.value,
+			ingredientMatches: newMatches
+		})
 	},
-	addIngredient: function() {
+	addIngredient: function(suggestion) {
 		var newList = this.state.ingredientsList;
-		newList.push(this.state.ingredient);
+		if(suggestion) {
+			newList.push(suggestion);
+		} else {
+			newList.push(this.state.ingredient.trim());
+		}
 		this.setState({
 			ingredientsList: newList
+		});
+	},
+	handleSuggestionClick: function(suggestion) {
+		this.addIngredient(suggestion);
+		this.setState({
+			ingredient: "",
+			ingredientMatches: []
 		});
 	},
 	render: function(){
@@ -55,10 +76,17 @@ var IngredientsSection = React.createClass({
 				    <button className="btn btn-default" type="submit">Add</button>
 				  </span>
 				</div>
+		  	<ul className="suggestionsList">
+	  			{this.state.ingredientMatches.map(function(suggestion, index){
+		  			return (
+		  				<li onClick={this.handleSuggestionClick.bind(this, suggestion)} className="suggestion form-control" key={index}>{suggestion}</li>
+		  			)
+	  			},this)}
+		  	</ul>
 				<ul className="ingredientsList">
 					{this.state.ingredientsList.map(function(i, index){
 						return (
-							<li key={index}>{i}</li>
+							<li key={index}>{index+1}. {i}</li>
 						)
 					})}
 				</ul>
