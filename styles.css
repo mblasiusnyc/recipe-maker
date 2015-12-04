@@ -15,14 +15,20 @@
 }
 
 .suggestionsList {
+	z-index: 100;
+	position: absolute;
+	top: 34px;
+	left: 0;
+	width: 100%;
 }
 
 .suggestionsList .suggestion {
-	height: 30px;
 	border-color: #CCC;
 	border-width: 0 1px 0 1px;
 	border-radius: 0px;
 	box-shadow: none;
+	background: solid #FFF;
+	width: 100%;
 }
 
 .suggestionsList .suggestion:last-of-type {
