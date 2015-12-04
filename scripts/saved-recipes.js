@@ -1,36 +1,3 @@
-var recipes = [
-	{
-		id: 1,
-		title: "My least favorite recipe",
-		description: "This is an OK recipe",
-		ingredients: [{
-			name: 'Wheat',
-			quantity: '10lbs'
-		},{
-			name: 'Barley',
-			quantity: '4 oz'
-		}],
-		instructions: [
-			"Light the beer on fire", "celebrate!"
-		]
-	},
-	{
-		id: 2,
-		title: "My MOST favorite recipe",
-		description: "This is a GREAT recipe",
-		ingredients: [{
-			name: 'Bread',
-			quantity: '6 lbs'
-		},{
-			name: 'Other',
-			quantity: '12 oz'
-		}],
-		instructions: [
-			"Go have lunch", "come back", "eat the beer"
-		]
-	}
-]
-
 var Recipe = React.createClass({
 	getInitialState: function(){
 	  return {
@@ -54,7 +21,7 @@ var Recipe = React.createClass({
 	render: function() {
 		var ingredientListItems = this.props.recipe.ingredients.map(function(ingredient) {
 			return (
-				<li className="ingredient" key={ingredient.name}>{ ingredient.name + " " + ingredient.quantity }</li>
+				<li className="ingredient" key={ingredient}>{ingredient}</li>
 			);
 		})
 		var instructionListItems = this.props.recipe.instructions.map(function(instruction, index) {
@@ -66,7 +33,7 @@ var Recipe = React.createClass({
 			<div className={this.state.class}>
 				<div className="sectionhead" onClick={this.handleClick}>
 				  <h3 className="recipeTitle">
-				    Title: {this.props.recipe.title}
+				    Title: {this.props.recipe.recipeName}
 				  </h3>
 			  </div>
 			  <div className="articlewrap">
@@ -86,8 +53,30 @@ var Recipe = React.createClass({
 })
 
 var RecipeList = React.createClass({
+	getInitialState: function() {
+		return {
+			recipes: []
+		}
+	},
+	componentDidMount: function() {
+		this.loadRecipes();
+		setInterval(this.loadRecipes, 5000);
+	},
+	loadRecipes: function() {
+		var self = this;
+		$.get(this.props.getUrl, function(data) {
+			console.log(data)
+			if(data === JSON.stringify(this.state)) {
+				return
+			} else {
+				self.setState({
+					recipes: JSON.parse(data)
+				})
+			}
+		})
+	},
   render: function() {
-  	var recipeNodes = this.props.recipes.map(function(recipe) {
+  	var recipeNodes = this.state.recipes.map(function(recipe) {
   	  return (
   	    <Recipe key={recipe.id} recipe={recipe} />
   	  );
@@ -101,6 +90,6 @@ var RecipeList = React.createClass({
 });
 
 ReactDOM.render(
-  <RecipeList recipes={recipes}/>,
+  <RecipeList getUrl="api/recipes" />,
   document.getElementById('recipe-list')
 );

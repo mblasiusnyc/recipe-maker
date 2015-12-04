@@ -10,11 +10,37 @@ app.use('/', express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/api/recipes', function(req, res) {
-	console.log('GET request to api/recipes')
+var recipes = [
+	{
+		id: 1,
+		recipeName: "My least favorite recipe",
+		description: "This is an OK recipe",
+		ingredients: ["Bread", "Milk", "Juice"],
+		instructions: [
+			"Light the beer on fire", "celebrate!"
+		]
+	},
+	{
+		id: 2,
+		recipeName: "My MOST favorite recipe",
+		description: "This is a GREAT recipe",
+		ingredients: ["Bread", "Milk", "Juice"],
+		instructions: [
+			"Go have lunch", "come back", "eat the beer"
+		]
+	}
+]
+
+app.get('/api/recipes', function(req, res, next) {
+	console.log('GET request sent to /api/recipes')
+
+	res.send(JSON.stringify(recipes))
 });
 
 app.post('/api/recipes', function(req, res) {
+	req.body.id = recipes.length+1;
+	if(!req.body.instructions) req.body.instructions = ["Step one"];
+	recipes.push(req.body);
 	console.log('POST request to api/recipes')
 });
 

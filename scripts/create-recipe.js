@@ -10,6 +10,12 @@ var RecipeForm = React.createClass({
   		ingredients: []
   	}
   },
+  createRecipe: function() {
+  	$.post("/api/recipes", this.state,function(data, err) {
+  		console.log(data)
+  		console.log(err)
+  	})
+  },
   handleUserInput: function(fieldName, value) {
   	this.setState({
   		[fieldName]: value
@@ -22,6 +28,7 @@ var RecipeForm = React.createClass({
   			<NameInput field="name" recipeName={this.state.recipeName} onUserInput={this.handleUserInput}></NameInput>
   			<DescriptionInput field="description" description={this.state.description} onUserInput={this.handleUserInput}></DescriptionInput>
   			<IngredientsSection field="ingredients" ingredients={this.state.ingredients} onUserInput={this.handleUserInput}></IngredientsSection>
+  			<button onClick={this.createRecipe}>Create Recipe</button>
   		</div>
   	)
   }
