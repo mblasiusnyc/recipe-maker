@@ -3,28 +3,63 @@ var defaultIngredients = [
 ]
 
 var RecipeForm = React.createClass({
+  getInitialState: function() {
+  	return {
+  		recipeName: "",
+  		description: "",
+  		ingredients: []
+  	}
+  },
+  handleUserInput: function(fieldName, value) {
+  	this.setState({
+  		[fieldName]: value
+  	});
+  	console.log(this.state)
+  },
   render: function() {
   	return (
   		<div className="recipeForm">
-  			<div className="form-group">
-	  			<label htmlFor="name">Recipe Name:</label>
-	  			<input type="text" className="form-control" id="name" />
-  			</div>
-  			<div className="form-group">
-	  			<label htmlFor="description">Description:</label>
-	  			<input type="text" className="form-control" id="description" />
-  			</div>
-  			<IngredientsSection></IngredientsSection>
+  			<NameInput field="name" recipeName={this.state.recipeName} onUserInput={this.handleUserInput}></NameInput>
+  			<DescriptionInput field="description" description={this.state.description} onUserInput={this.handleUserInput}></DescriptionInput>
+  			<IngredientsSection field="ingredients" ingredients={this.state.ingredients} onUserInput={this.handleUserInput}></IngredientsSection>
   		</div>
   	)
   }
 });
 
+var NameInput = React.createClass({
+	handleChange: function() {
+		this.props.onUserInput('recipeName', this.refs.nameInput.value)
+	},
+	render: function() {
+		return (
+			<div className="form-group">
+				<label>Name</label>
+				<input value={this.props.recipeName} type="text" ref="nameInput" onChange={this.handleChange} className="form-control" id={this.props.field} />
+			</div>
+		)
+	}
+})
+
+var DescriptionInput = React.createClass({
+	handleChange: function() {
+		this.props.onUserInput('description', this.refs.descriptionInput.value)
+	},
+	render: function() {
+		return (
+			<div className="form-group">
+				<label>Description</label>
+				<input value={this.props.description} type="text" ref="descriptionInput" onChange={this.handleChange} className="form-control" id={this.props.field} />
+			</div>
+		)
+	}
+})
+
+
 var IngredientsSection = React.createClass({
 	getInitialState: function() {
 		return {
 			ingredient: "",
-			ingredientsList: [],
 			ingredientMatches: []
 		}
 	},
@@ -50,15 +85,13 @@ var IngredientsSection = React.createClass({
 		})
 	},
 	addIngredient: function(suggestion) {
-		var newList = this.state.ingredientsList;
+		var newList = this.props.ingredients;
 		if(suggestion) {
 			newList.push(suggestion);
 		} else {
 			newList.push(this.state.ingredient.trim());
 		}
-		this.setState({
-			ingredientsList: newList
-		});
+		this.props.onUserInput('ingredients', newList)
 	},
 	handleSuggestionClick: function(suggestion) {
 		this.addIngredient(suggestion);
@@ -84,7 +117,7 @@ var IngredientsSection = React.createClass({
 	  			},this)}
 		  	</ul>
 				<ul className="ingredientsList">
-					{this.state.ingredientsList.map(function(i, index){
+					{this.props.ingredients.map(function(i, index){
 						return (
 							<li key={index}>{index+1}. {i}</li>
 						)
