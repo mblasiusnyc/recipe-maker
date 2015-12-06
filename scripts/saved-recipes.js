@@ -21,31 +21,22 @@ var Recipe = React.createClass({
 	render: function() {
 		var ingredientListItems = this.props.recipe.ingredients.map(function(ingredient) {
 			return (
-				<li className="ingredient" key={ingredient}>{ingredient}</li>
+				<li className="ingredient" key={ingredient}>-{ingredient}</li>
 			);
 		})
-		var instructionListItems = this.props.recipe.instructions.map(function(instruction, index) {
-			return (
-				<li className="instruction" key={index}>{index+1}. {instruction}</li>
-			)
-		});
 		return (
 			<div className={this.state.class}>
 				<div className="sectionhead" onClick={this.handleClick}>
-				  <h3 className="recipeTitle">
-				    Title: {this.props.recipe.recipeName}
-				  </h3>
+				  <p className="recipe-title">
+				    {this.props.recipe.recipeName}
+				  </p>
 			  </div>
 			  <div className="articlewrap">
-				  <h4 className="recipeDescription">Description: {this.props.recipe.description}</h4>
-				  <ul className="ingredientsList">
-					  <h4 className="ingredientsTitle">Ingredients</h4>
+				  <p className="recipe-description">{this.props.recipe.description}</p>
+				  <ul className="ingredients-list">
+					  <p className="ingredients-title">Ingredients: </p>
 				  	{ingredientListItems}
 				  </ul>
-			    <ul className="instructionsList">
-			  	  <h4 className="instructionsTitle">Instructions</h4>
-			    	{instructionListItems}
-			    </ul>
 			  </div>
 			</div>
 		)

@@ -2,6 +2,37 @@ var defaultIngredients = [
 	"Barley", "Wheat", "Cheese", "Extract"
 ]
 
+
+var RecipeFormContainer = React.createClass({
+	getInitialState: function(){
+		return {
+			open: false,
+			class: ""
+		}
+	},
+	handleClick: function(){
+	  if(this.state.open) {
+	    this.setState({
+	      open: false,
+	      class: ""
+	    });
+	  }else{
+	    this.setState({
+	      open: true,
+	      class: "open"
+	    });
+	  }
+	},
+	render: function(){
+		return (
+			<div className={this.state.class}>
+				<div id="show-recipe-form" onClick={this.handleClick} className="sectionhead btn btn-primary">Create a Recipe</div>
+				<RecipeForm />
+			</div>
+		)
+	}
+})
+
 var emptyRecipe = {
 	recipeName: "",
 	description: "",
@@ -13,9 +44,8 @@ var RecipeForm = React.createClass({
   	return emptyRecipe;
   },
   createRecipe: function() {
+  	if(!this.state.recipeName || !this.state.description || !this.state.ingredients) return;
   	$.post("/api/recipes", this.state,function(data, err) {
-  		console.log(data)
-  		console.log(err)
   	})
   	this.setState(emptyRecipe);
   },
@@ -26,7 +56,7 @@ var RecipeForm = React.createClass({
   },
   render: function() {
   	return (
-  		<div id="recipe-form">
+  		<div className="articlewrap" id="recipe-form">
   			<NameInput field="name" recipeName={this.state.recipeName} onUserInput={this.handleUserInput}></NameInput>
   			<DescriptionInput field="description" description={this.state.description} onUserInput={this.handleUserInput}></DescriptionInput>
   			<IngredientsSection field="ingredients" ingredients={this.state.ingredients} onUserInput={this.handleUserInput}></IngredientsSection>
@@ -152,6 +182,6 @@ var IngredientsSection = React.createClass({
 // })
 
 ReactDOM.render(
-  <RecipeForm />,
+  <RecipeFormContainer />,
   document.getElementById('new-recipe-form')
 );

@@ -15,19 +15,13 @@ var recipes = [
 		id: 1,
 		recipeName: "My least favorite recipe",
 		description: "This is an OK recipe",
-		ingredients: ["Bread", "Milk", "Juice"],
-		instructions: [
-			"Light the beer on fire", "celebrate!"
-		]
+		ingredients: ["Bread", "Milk", "Juice"]
 	},
 	{
 		id: 2,
 		recipeName: "My MOST favorite recipe",
 		description: "This is a GREAT recipe",
-		ingredients: ["Bread", "Milk", "Juice"],
-		instructions: [
-			"Go have lunch", "come back", "eat the beer"
-		]
+		ingredients: ["Bread", "Milk", "Juice"]
 	}
 ]
 

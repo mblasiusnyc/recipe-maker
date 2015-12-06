@@ -1,9 +1,9 @@
-html {
-	height: 100%;
+* {
+	font-family: 'Open Sans', sans-serif !important;
 }
 
-* {
-
+html {
+	height: 100%;
 }
 
 body {
@@ -15,7 +15,7 @@ body {
 .container {
 	background-color: #FFF;
 	width: 800px;
-	height: 500px;
+	max-height: 800px;
 	margin: 50px auto;
 	border-radius: 25px;
 	overflow: auto;
@@ -26,16 +26,20 @@ body {
     display: none;
 }
 
-#app-title {
-	font-size: 30px;
+#show-recipe-form {
+	font-size: 20px;
+	margin: 18px auto;
+	width: 350px;
+	display: block;
 }
+
 
 #app-title, .section-heading {
 	text-align: center;
 }
 
 #recipe-form {
-	margin: 30px auto;
+	margin: 0 auto;
 	width: 350px;
 }
 
@@ -50,25 +54,36 @@ body {
 
 .recipe {
 	width: 500px;
+	padding: 0 18px;
 	text-align: left;
 	background-color: #CCC;
 	margin: 10px auto;
 	border-radius: 10px;
 }
 
+.recipe .sectionhead {
+	height: 40px;
+	line-height: 40px;
+}
+
+.recipe-title {
+	font-size: 20px;
+}
+
+.recipe-description {
+	font-size: 18px;
+}
+
+.ingredients-title {
+	font-weight: bold;
+	margin-bottom: 2px;
+}
+
 #ingredients-section {
 	position: relative;
 }
 
-#ingredients-section .ingredient {
-
-}
-
 .suggestionsList {
-	z-index: 100;
-	position: absolute;
-	top: 59px;
-	left: 0;
 	width: 100%;
 }
 
