@@ -2,33 +2,35 @@ var defaultIngredients = [
 	"Barley", "Wheat", "Cheese", "Extract"
 ]
 
+var emptyRecipe = {
+	recipeName: "",
+	description: "",
+	ingredients: []
+}
+
 var RecipeForm = React.createClass({
   getInitialState: function() {
-  	return {
-  		recipeName: "",
-  		description: "",
-  		ingredients: []
-  	}
+  	return emptyRecipe;
   },
   createRecipe: function() {
   	$.post("/api/recipes", this.state,function(data, err) {
   		console.log(data)
   		console.log(err)
   	})
+  	this.setState(emptyRecipe);
   },
   handleUserInput: function(fieldName, value) {
   	this.setState({
   		[fieldName]: value
   	});
-  	console.log(this.state)
   },
   render: function() {
   	return (
-  		<div className="recipeForm">
+  		<div id="recipe-form">
   			<NameInput field="name" recipeName={this.state.recipeName} onUserInput={this.handleUserInput}></NameInput>
   			<DescriptionInput field="description" description={this.state.description} onUserInput={this.handleUserInput}></DescriptionInput>
   			<IngredientsSection field="ingredients" ingredients={this.state.ingredients} onUserInput={this.handleUserInput}></IngredientsSection>
-  			<button onClick={this.createRecipe}>Create Recipe</button>
+  			<button id="create-recipe-button" className="btn btn-success" onClick={this.createRecipe}>Create Recipe</button>
   		</div>
   	)
   }
@@ -109,8 +111,9 @@ var IngredientsSection = React.createClass({
 	},
 	render: function(){
 		return (
-			<form className="ingredientsSection" onSubmit={this.handleSubmit}>
+			<form id="ingredients-section" onSubmit={this.handleSubmit}>
 				<div className="input-group">
+					<label>Ingredients</label>
 				  <input type="text" value={this.state.ingredient} onChange={this.updateIngredient} className="form-control" placeholder="Search for ingredients..." />
 				  <span className="input-group-btn">
 				    <button className="btn btn-default" type="submit">Add</button>
@@ -123,10 +126,10 @@ var IngredientsSection = React.createClass({
 		  			)
 	  			},this)}
 		  	</ul>
-				<ul className="ingredientsList">
+				<ul className="ingredients-list">
 					{this.props.ingredients.map(function(i, index){
 						return (
-							<li key={index}>{index+1}. {i}</li>
+							<li className="ingredient" key={index}>-{i}</li>
 						)
 					})}
 				</ul>
@@ -134,6 +137,19 @@ var IngredientsSection = React.createClass({
 		)
 	}
 })
+
+// var InstructionsSection = React.createClass({
+// 	handleChange: function() {
+
+// 	},
+// 	render: function() {
+// 		return (
+// 			<div className="instructionsSection">
+// 				<input onChange={this.handleChange}
+// 			</div>
+// 		)
+// 	}
+// })
 
 ReactDOM.render(
   <RecipeForm />,

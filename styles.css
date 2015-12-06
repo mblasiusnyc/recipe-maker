@@ -1,23 +1,73 @@
+html {
+	height: 100%;
+}
+
+* {
+
+}
+
+body {
+  background: url("img/beer.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
 .container {
+	background-color: #FFF;
+	width: 800px;
+	height: 500px;
+	margin: 50px auto;
+	border-radius: 25px;
+	overflow: auto;
+	scrollbar: auto;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+#app-title {
+	font-size: 30px;
+}
+
+#app-title, .section-heading {
+	text-align: center;
+}
+
+#recipe-form {
+	margin: 30px auto;
+	width: 350px;
+}
+
+#recipe-form label {
+	display: table-caption;
+}
+
+#create-recipe-button {
+	display: block;
+	margin: 20px auto 0;
 }
 
 .recipe {
-	margin: 20px;
-	border: 1px solid black;
-}
-
-.recipeForm {
 	width: 500px;
+	text-align: left;
+	background-color: #CCC;
+	margin: 10px auto;
+	border-radius: 10px;
 }
 
-.ingredientsSection {
+#ingredients-section {
 	position: relative;
+}
+
+#ingredients-section .ingredient {
+
 }
 
 .suggestionsList {
 	z-index: 100;
 	position: absolute;
-	top: 34px;
+	top: 59px;
 	left: 0;
 	width: 100%;
 }
