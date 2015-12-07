@@ -18,7 +18,6 @@
   "homepage": "https://github.com/mblasiusnyc/recipe-maker#readme",
   "dependencies": {
     "body-parser": "^1.14.1",
-    "bootstrap": "^3.3.6",
     "express": "^4.13.3"
   }
 }
