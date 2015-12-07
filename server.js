@@ -27,7 +27,6 @@ var recipes = [
 
 app.get('/api/recipes', function(req, res, next) {
 	console.log('GET request sent to /api/recipes')
-
 	res.send(JSON.stringify(recipes))
 });
 

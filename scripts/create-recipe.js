@@ -2,7 +2,6 @@ var defaultIngredients = [
 	"Barley", "Wheat", "Cheese", "Extract"
 ]
 
-
 var RecipeFormContainer = React.createClass({
 	getInitialState: function(){
 		return {
@@ -34,9 +33,9 @@ var RecipeFormContainer = React.createClass({
 })
 
 var emptyRecipe = {
+	ingredients: [],
 	recipeName: "",
-	description: "",
-	ingredients: []
+	description: ""
 }
 
 var RecipeForm = React.createClass({
@@ -45,11 +44,13 @@ var RecipeForm = React.createClass({
   },
   createRecipe: function() {
   	if(!this.state.recipeName || !this.state.description || !this.state.ingredients) return;
-  	$.post("/api/recipes", this.state,function(data, err) {
-  	})
+  	$.post("/api/recipes", this.state,function(data, err) {})
   	this.setState(emptyRecipe);
+  	this.setState({ ingredients: [] });
   },
   handleUserInput: function(fieldName, value) {
+  	console.log('fieldName: ',fieldName)
+  	console.log('value: ',value)
   	this.setState({
   		[fieldName]: value
   	});

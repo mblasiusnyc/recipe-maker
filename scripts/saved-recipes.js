@@ -51,12 +51,11 @@ var RecipeList = React.createClass({
 	},
 	componentDidMount: function() {
 		this.loadRecipes();
-		setInterval(this.loadRecipes, 5000);
+		setInterval(this.loadRecipes, 1000);
 	},
 	loadRecipes: function() {
 		var self = this;
 		$.get(this.props.getUrl, function(data) {
-			console.log(data)
 			if(data === JSON.stringify(this.state)) {
 				return
 			} else {
